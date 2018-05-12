@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.test.dao.TestDao">
+  <cache eviction="LRU" type="com.test.cache.RedisCache"/>
+  <resultMap id="testDao" type="com.test.pojo.User">
+  
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+  </resultMap>
+  
+  <sql id="Base_Column_List">
+    id, user_name,password
+  </sql>
+  
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="testDao">
+		SELECT <include refid="Base_Column_List" /> 
+		FROM user_t
+		WHERE id=#{_parameter}
+  </select>
+  
+  <update id="update" parameterType="com.test.pojo.User">
+  	update user_t SET user_name=#{userName},password=#{password} where id=#{id}
+  </update>
+</mapper>

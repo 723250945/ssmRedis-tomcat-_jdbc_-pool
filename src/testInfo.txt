@@ -1,0 +1,3 @@
+测试说明：
+1.必须打开redis服务
+2.浏览器：http://localhost:8080/showUser?id=1
